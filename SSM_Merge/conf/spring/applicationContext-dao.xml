@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+    xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd
+    ">
+    
+    <!-- 引入数据源属性文件 -->
+    <context:property-placeholder location="classpath:db.properties"/>
+    
+    <!-- 配置数据源信息 -->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+    	<property name="driverClassName" value="${driver}"></property>
+    	<property name="url" value="${url}"></property>
+    	<property name="username" value="${username}"></property>
+    	<property name="password" value="${password}"></property>
+    	<property name="maxActive" value="10"></property>
+    	<property name="maxIdle" value="5"></property>
+    </bean>
+    
+    <!-- 配置sqlSessionFactory -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    	<!-- 关联已经配置好的数据源 -->
+    	<property name="dataSource" ref="dataSource"></property>
+    	
+    	<!-- 关联mybatis的核心配置文件 -->
+    	<property name="configLocation" value="classpath:mybatis/conf.xml"></property>
+    </bean>
+    
+    <!-- 配置dao层的代理实现类，基于扫描的方式一次性配置多个 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+    	<!-- 代表代理对象使用的连接工厂，跟数据库建立联系：SqlSession -->
+    	<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+   		
+   		<!-- 需要扫描的是谁（basePackage） -->
+   		<property name="basePackage" value="dao"></property>
+    </bean>
+    
+</beans>     
