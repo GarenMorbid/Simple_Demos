@@ -10,7 +10,8 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<-- <spring.version>4.2.6.RELEASE</spring.version> -->
-		<spring.version>4.3.17.RELEASE</spring.version>
+		<-- 如果下面的spring版本不行，请使用上面的spring版本 -->	
+		<spring.version>5.0.8.RELEASE</spring.version>
 	</properties>
 
 	<dependencies>
