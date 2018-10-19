@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Encrypt</title>
+</head>
+<body>
+<div style="margin:0 auto;text-align: center;">
+    <h1>Spring Boot file Encrypt example</h1>
+    <form method="post" action="/upload" enctype="multipart/form-data">
+        <input type="file" name="file" accept="image/*"><br>
+        <input type="submit" value="加密">
+    </form>
+
+    <a th:href="encrypt.html" style="text-decoration: none;">解密文件</a>
+</div>
+
+<h1 th:if="${message}">Spring Boot - Upload Status</h1>
+<div th:if="${message}">
+    <h2 th:text="${message}"></h2>
+</div>
+</body>
+</html>
