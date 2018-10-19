@@ -24,12 +24,13 @@ public class UploadController {
      * @param file
      * @param redirectAttributes 重定向页面传递参数
      * @param response
+     * @param request
      * @return java.lang.String
      * @author houdq
      * @date 2018/10/19 15:38
      */
     @PostMapping(value = "/upload")
-    public String singleFileUpload(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes, HttpServletResponse response) {
+    public String singleFileUpload(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes, HttpServletResponse response, HttpServletRequest request) {
         if (file.isEmpty()) {
             //文件为空，返回提示信息
             redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
@@ -47,9 +48,11 @@ public class UploadController {
             BufferedOutputStream bos = new BufferedOutputStream(response.getOutputStream());
             //读取文件
             int len = 0;
+            // 加密密码
+            int password = Integer.parseInt(request.getParameter("password"));
             while ((len = bis.read()) != -1) {
                 //写到前台
-                bos.write(len ^ 123);
+                bos.write(len ^ password);
             }
             //关闭流
             bis.close();
@@ -68,12 +71,13 @@ public class UploadController {
      * @param file
      * @param redirectAttributes 重定向页面传递参数
      * @param response
+     * @param request
      * @return java.lang.String
      * @author houdq
      * @date 2018/10/19 15:38
      */
     @PostMapping(value = "/encrypt")
-    public String singleFileEncryption(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes, HttpServletResponse response) {
+    public String singleFileEncryption(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes, HttpServletResponse response, HttpServletRequest request) {
         if (file.isEmpty()) {
             //文件为空，返回提示信息
             redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
@@ -91,9 +95,11 @@ public class UploadController {
             BufferedOutputStream bos = new BufferedOutputStream(response.getOutputStream());
             //读取文件
             int len = 0;
+            // 加密密码
+            int password = Integer.parseInt(request.getParameter("password"));
             while ((len = bis.read()) != -1) {
                 //写到前台
-                bos.write(len ^ 123);
+                bos.write(len ^ password);
             }
             //关闭流
             bis.close();
