@@ -8,7 +8,8 @@
 <div style="margin:0 auto;text-align: center;">
     <h1>Spring Boot file Encrypt example</h1>
     <form method="post" action="/upload" enctype="multipart/form-data">
-        <input type="file" name="file" accept="image/*"><br>
+        <input type="file" name="file" accept="image/*"/><br>
+        输入加密密码(只能为数字)：<input type="text" name="password"/><br>
         <input type="submit" value="加密">
     </form>
 
